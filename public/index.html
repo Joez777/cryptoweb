@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Exchange</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Crypto Exchange</h1>
+
+        <!-- Login Form -->
+        <div class="card" id="login-section">
+            <div class="card-header">เข้าสู่ระบบ</div>
+            <div class="card-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <input type="email" class="form-control" name="email" placeholder="อีเมล" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="รหัสผ่าน" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="card">
+            <div class="card-header">สมัครสมาชิก</div>
+            <div class="card-body">
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="name" placeholder="ชื่อ" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" name="email" placeholder="อีเมล" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="รหัสผ่าน" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Trading Section -->
+        <div id="trading-section" style="display: none;">
+            <!-- Wallet Balances -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">ยอดคงเหลือ</h5>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#depositModal">
+                        เติมเงิน
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="walletList">
+                        <!-- Wallet cards will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crypto Prices -->
+            <div class="card mb-4">
+                <div class="card-header">ราคา Cryptocurrency</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="crypto-price" id="btc-price">BTC: $0</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="crypto-price" id="eth-price">ETH: $0</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="crypto-price" id="xrp-price">XRP: $0</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="crypto-price" id="doge-price">DOGE: $0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trading Form -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#instant-trade">ซื้อ-ขายทันที</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#limit-trade">ตั้งราคาซื้อ-ขาย</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <!-- Instant Trade Form -->
+                        <div class="tab-pane fade show active" id="instant-trade">
+                            <form id="tradeForm">
+                                <div class="row g-3">
+                                    <div class="col-md-2">
+                                        <select class="form-select" name="crypto" required>
+                                            <option value="">เลือก Crypto</option>
+                                            <option value="BTC">Bitcoin (BTC)</option>
+                                            <option value="ETH">Ethereum (ETH)</option>
+                                            <option value="XRP">Ripple (XRP)</option>
+                                            <option value="DOGE">Dogecoin (DOGE)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-select" name="type" required>
+                                            <option value="BUY">ซื้อ</option>
+                                            <option value="SELL">ขาย</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-select" name="currency" required>
+                                            <option value="THB">THB</option>
+                                            <option value="USD">USD</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" class="form-control" name="amount" 
+                                               placeholder="จำนวน" step="0.00000001" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-text" id="totalPrice">
+                                            ราคารวม: ฿0.00
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-primary w-100">ซื้อ-ขายทันที</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Limit Trade Form -->
+                        <div class="tab-pane fade" id="limit-trade">
+                            <form id="limitOrderForm">
+                                <div class="row g-3">
+                                    <div class="col-md-2">
+                                        <select class="form-select" name="crypto" required>
+                                            <option value="">เลือก Crypto</option>
+                                            <option value="BTC">Bitcoin (BTC)</option>
+                                            <option value="ETH">Ethereum (ETH)</option>
+                                            <option value="XRP">Ripple (XRP)</option>
+                                            <option value="DOGE">Dogecoin (DOGE)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-select" name="type" required>
+                                            <option value="BUY">ซื้อ</option>
+                                            <option value="SELL">ขาย</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-select" name="currency" required>
+                                            <option value="THB">THB</option>
+                                            <option value="USD">USD</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" class="form-control" name="amount" 
+                                               placeholder="จำนวน" step="0.00000001" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" class="form-control" name="price" 
+                                               placeholder="ราคาต่อหน่วย" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-primary w-100">ตั้งคำสั่งซื้อ-ขาย</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="card">
+                <div class="card-header">ประวัติการซื้อ-ขาย</div>
+                <div class="card-body">
+                    <div class="transaction-list" id="transactionHistory">
+                        <!-- Transaction items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Book -->
+            <div class="card mb-4">
+                <div class="card-header">คำสั่งซื้อ-ขาย ที่รอดำเนินการ</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>คำสั่งซื้อ</h6>
+                            <div id="buyOrders" class="order-list">
+                                <!-- Buy orders will be inserted here -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>คำสั่งขาย</h6>
+                            <div id="sellOrders" class="order-list">
+                                <!-- Sell orders will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deposit Modal -->
+        <div class="modal fade" id="depositModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">เติมเงิน</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="depositForm">
+                            <div class="mb-3">
+                                <label class="form-label">เลือก Wallet</label>
+                                <select class="form-select" name="wallet_id" required>
+                                    <!-- Wallet options will be populated dynamically -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">จำนวนเงิน</label>
+                                <input type="number" class="form-control" name="amount" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">ยืนยันการเติมเงิน</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html> 

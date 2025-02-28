@@ -1,0 +1,65 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1000px;
+    margin-top: 2rem;
+}
+
+.card {
+    margin-bottom: 1rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.crypto-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.balance-card {
+    background: linear-gradient(45deg, #0d6efd, #0099ff);
+    color: white;
+}
+
+.balance-amount {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.currency-icon {
+    font-size: 1.5em;
+    margin-right: 0.5rem;
+}
+
+.transaction-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.transaction-item {
+    border-left: 4px solid;
+    margin-bottom: 0.5rem;
+}
+
+.transaction-buy {
+    border-color: #198754;
+}
+
+.transaction-sell {
+    border-color: #dc3545;
+}
+
+.transaction-deposit {
+    border-color: #0d6efd;
+}
+
+.transaction-amount {
+    font-weight: bold;
+}
+
+.transaction-date {
+    color: #6c757d;
+    font-size: 0.9em;
+} 
